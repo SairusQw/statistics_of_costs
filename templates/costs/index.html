@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Вітаю у вашій статистиці витрат</h1>
+  {% if slov %}
+     <table class="table">
+      <tr>
+        <th>Категорія</th>
+          <th>Загальні витрати</th>
+      </tr>
+
+      {% for key, value in slov.items %}
+        <tr>
+          <td>
+              {{ key }}
+          </td>
+          <td>
+              {{ value }} UAH
+          </td>
+         </tr>
+      {% endfor %}
+    </table>
+{% else %}
+      <p>Наразі немає витрат</p>
+{% endif %}
+{% endblock %}

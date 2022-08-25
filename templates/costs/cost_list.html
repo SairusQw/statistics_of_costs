@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>
+    Список витрат
+    <a href="{% url 'costs:cost_create' %}" class="btn btn-primary link-to-page">
+      Створити
+    </a>
+    <a href="{% url 'costs:cost_delete_all' %}" class="btn btn-secondary link-to-page">
+      Видалити усі записи
+    </a>
+  </h1>
+  <form action="" method="get" class="form-inline">
+    {{ search_form|crispy }}
+    <input type="submit" value="Пошук">
+  </form>
+  {% if cost_list %}
+    <table class="table">
+      <tr>
+        <th>Дата</th>
+        <th>Категорія</th>
+        <th>Вартість</th>
+      </tr>
+
+      {% for cost in cost_list %}
+        <tr>
+          <td>
+              {{ cost.data|date:"Y m d" }}
+          </td>
+          <td>
+              {{ cost.category }}
+          </td>
+          <td>
+              {{ cost.price }} UAH
+          </td>
+        </tr>
+          <td>
+              <a href="{% url 'costs:cost_update' pk=cost.id %}">
+                Оновити дані
+              </a>
+            </td>
+            <td>
+              <a style="color: red"
+                href="{% url 'costs:cost_delete' pk=cost.id %}">
+                Видалити
+              </a>
+            </td>
+      {% endfor %}
+    </table>
+
+  {% else %}
+      <p>Наразі немає витрат</p>
+  {% endif %}
+{% endblock %}

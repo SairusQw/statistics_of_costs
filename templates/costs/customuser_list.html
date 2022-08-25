@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>
+      Список користувачів
+      <a href="{% url 'costs:user_create' %}" class="btn btn-primary link-to-page">
+        Створити
+      </a>
+    </h1>
+    {% if users_list %}
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>First name</th>
+        <th>Last name</th>
+      </tr>
+    {% for user in users_list %}
+      <tr>
+        <td><a href="{{ user.get_absolute_url }}">{{ user.username }} {% if user == user %} (Me){% endif %}</a></td>
+        <td>{{ user.first_name }}</td>
+        <td>{{ user.last_name }}</td>
+      </tr>
+    {% endfor %}
+
+    </table>
+    {% else %}
+      <p>Наразі немає жодного користувача</p>
+    {% endif %}
+{% endblock %}

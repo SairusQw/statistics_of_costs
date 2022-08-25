@@ -1,0 +1,15 @@
+<ul class="sidebar-nav">
+   {% if user.is_authenticated %}
+    <li class="list-group-item">Користувач: <a href="{{ user.get_absolute_url }}">{{ user.get_username }}</a></li>
+    <li class="list-group-item"><a href="{% url 'logout'%}?next={{request.path}}">Вийти</a></li>
+  {% else %}
+    <li class="list-group-item"><a href="{% url 'login'%}?next={{request.path}}">Логін</a></li>
+    <li>
+      <a href="{% url 'costs:user_create' %}" class="btn btn-primary link-to-page">
+        Створити
+      </a>
+    </li>
+  {% endif %}
+  <li><a href="{% url 'costs:index' %}">Домашня сторінка</a></li>
+  <li class="list-group-item"><a href="{% url 'costs:cost_list' %}">Усі витрати</a></li>
+</ul>
